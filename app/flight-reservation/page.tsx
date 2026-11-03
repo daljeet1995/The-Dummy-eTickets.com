@@ -37,6 +37,7 @@ export default function FlightReservationPage() {
         </h3>
         <Link
           href="/contact"
+          style={{ color: "#fff", textDecoration: "none" }}
           className="inline-flex mt-3 bg-brandPink-500 hover:bg-brandPink-600 text-white font-bold text-sm px-8 py-3 rounded-full transition"
         >
           Book Flight Reservation
