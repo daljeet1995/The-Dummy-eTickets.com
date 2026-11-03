@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { getPosts, type WPPost } from "@/lib/wordpress";
 import SearchWidget from "./SearchWidget";
+import TrustBadges from "./TrustBadges"; // ✅ IMPORT ADD KAREIN
 
 type Tab = "flight" | "hotel" | "combo";
 type PopoverId = "flight" | "hotel" | "combo" | null;
@@ -767,7 +768,7 @@ export default function HomeClient() {
           </div>
         </div>
       </section>
-
+      <TrustBadges /> 
       {/* ================= FOOTER ================= */}
       {/* <footer id="footer" className="bg-pink-orange-gradient text-white pt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
