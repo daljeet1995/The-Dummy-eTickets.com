@@ -2,11 +2,20 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { getPosts, getCategories } from "@/lib/wordpress";
+import { Metadata } from "next";
 
-export const metadata = {
-  title: "Blog | The Dummy-Tickets.com",
-  description: "Travel tips, visa guides and updates.",
+export const metadata: Metadata = {
+  title: "Travel Tips, Visa Guides & Updates | The Dummy-Tickets Blog",
+  description:
+    "Read the latest travel tips, embassy news, and visa application guides to make your international travel seamless.",
+  openGraph: {
+    title: "Travel Tips & Visa Guides",
+    description:
+      "Read the latest travel tips, embassy news, and visa application guides.",
+  },
 };
+
+// ... (Baki ka code jo pehle se hai waisa hi rahega: CategoryBar, BlogPosts, etc.)
 
 // ---------- Category Filter Bar (static data, no params) ----------
 async function CategoryBar() {

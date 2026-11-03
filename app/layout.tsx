@@ -7,7 +7,6 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import TrustBadges from "./components/TrustBadges";
 
-
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -21,10 +20,43 @@ const caveat = Caveat({
   display: "swap",
 });
 
+// GLOBAL SEO CONFIGURATION
 export const metadata: Metadata = {
-  title: "The Dummy-Tickets.com - Book Flight & Hotel Reservations for Visa",
+  metadataBase: new URL("https://dummy-tickets-nextjs.vercel.app"), // APNA DOMAIN YAHAN DAALEIN
+  title: {
+    default:
+      "The Dummy-Tickets.com - Book Flight & Hotel Reservations for Visa",
+    template: "%s | The Dummy-Tickets.com",
+  },
   description:
-    "Book flight reservations, onward tickets and more with trusted service worldwide.",
+    "Book flight reservations, onward tickets, hotel bookings, and dummy itineraries for visa purposes with trusted service worldwide.",
+  keywords: [
+    "dummy ticket",
+    "flight reservation for visa",
+    "onward ticket",
+    "flight itinerary",
+    "hotel booking for visa",
+    "travel documents",
+  ],
+  authors: [{ name: "The Dummy-Tickets.com" }],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://dummy-tickets-nextjs.vercel.app",
+    title: "The Dummy-Tickets.com - Book Flight & Hotel Reservations for Visa",
+    description:
+      "Book flight reservations, onward tickets and more with trusted service worldwide.",
+    siteName: "The Dummy-Tickets.com",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Dummy-Tickets.com - Book Flight & Hotel Reservations for Visa",
+    description:
+      "Book flight reservations, onward tickets and more with trusted service worldwide.",
+  },
+  icons: {
+    icon: "/favicon.ico", // Make sure to place favicon.ico in your public folder
+  },
 };
 
 export default function RootLayout({
@@ -37,7 +69,7 @@ export default function RootLayout({
       >
         <Header />
         {children}
-        <TrustBadges /> {/* ADD THIS */}
+        <TrustBadges />
         <Footer />
       </body>
     </html>

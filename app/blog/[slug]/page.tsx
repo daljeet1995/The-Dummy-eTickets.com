@@ -3,6 +3,47 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPostBySlug } from "@/lib/wordpress";
+import { Metadata } from "next";
+
+// ==========================================
+// DYNAMIC SEO FOR SINGLE BLOG POST
+// ==========================================
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+
+  if (!post) {
+    return { title: "Post Not Found" };
+  }
+
+  // HTML tags remove karke clean text nikalna
+  const cleanTitle = post.title.rendered.replace(/<[^>]+>/g, "");
+  const cleanExcerpt =
+    post.excerpt.rendered.replace(/<[^>]+>/g, "").slice(0, 160) + "...";
+
+  return {
+    title: cleanTitle,
+    description: cleanExcerpt,
+    openGraph: {
+      title: cleanTitle,
+      description: cleanExcerpt,
+      type: "article",
+      publishedTime: post.date,
+      images: post._embedded?.["wp:featuredmedia"]?.[0]?.source_url
+        ? [{ url: post._embedded["wp:featuredmedia"][0].source_url }]
+        : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: cleanTitle,
+      description: cleanExcerpt,
+    },
+  };
+}
 
 // Child component that awaits params — kept inside Suspense
 async function PostContent({ slugPromise }: { slugPromise: Promise<string> }) {
