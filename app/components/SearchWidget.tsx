@@ -64,6 +64,7 @@ export default function SearchWidget() {
   const [showLeadForm, setShowLeadForm] = useState(false);
   const [leadName, setLeadName] = useState("");
   const [leadEmail, setLeadEmail] = useState("");
+  const [leadPhone, setLeadPhone] = useState(""); // <-- NAYA STATE ADD KIYA
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [summaryText, setSummaryText] = useState("");
@@ -171,6 +172,7 @@ export default function SearchWidget() {
               type: "Flight",
               name: leadName,
               email: leadEmail,
+              phone: leadPhone, // <-- PHONE YAHAN ADD KIYA
               from: flightFrom,
               to: flightTo,
               departure,
@@ -183,6 +185,7 @@ export default function SearchWidget() {
                 type: "Hotel",
                 name: leadName,
                 email: leadEmail,
+                phone: leadPhone, // <-- PHONE YAHAN ADD KIYA
                 from: hotelDest,
                 to: "Hotel Stay",
                 departure: hotelCheckIn,
@@ -194,6 +197,7 @@ export default function SearchWidget() {
                 type: "Combo",
                 name: leadName,
                 email: leadEmail,
+                phone: leadPhone, // <-- PHONE YAHAN ADD KIYA
                 from: comboFrom,
                 to: comboTo,
                 departure: comboDep,
@@ -222,6 +226,7 @@ export default function SearchWidget() {
     setShowLeadForm(false);
     setLeadName("");
     setLeadEmail("");
+    setLeadPhone(""); // <-- RESET PHONE
     setSummaryText("");
   };
 
@@ -927,6 +932,20 @@ export default function SearchWidget() {
                   className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs font-semibold text-slate-800 focus:outline-none focus:border-brandPink-500"
                 />
               </div>
+            </div>
+
+            {/* NAYA WHATSAPP FIELD */}
+            <div>
+              <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">
+                WhatsApp Number (Optional)
+              </label>
+              <input
+                type="tel"
+                value={leadPhone}
+                onChange={(e) => setLeadPhone(e.target.value)}
+                placeholder="+91 98765 43210"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs font-semibold text-slate-800 focus:outline-none focus:border-brandPink-500"
+              />
             </div>
 
             <div className="flex gap-2">

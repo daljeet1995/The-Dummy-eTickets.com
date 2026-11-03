@@ -64,6 +64,13 @@ export default function Header() {
           </Link>
         </nav>
 
+        <Link
+          href="/how-it-works"
+          className="hover:text-brandPink-500 transition-colors"
+        >
+          How It Works
+        </Link>
+
         {/* Get Quotation Dropdown (Desktop) */}
         <div
           className="hidden lg:flex relative"
