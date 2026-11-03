@@ -2,6 +2,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -9,7 +10,8 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-pink-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-        <a href="/" className="flex items-center gap-2 group">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2 group">
           <div className="w-10 h-10 rounded-xl bg-pink-orange-gradient flex items-center justify-center text-white shadow-md transition-transform group-hover:scale-105">
             <i className="fa-solid fa-plane-departure text-xl" />
           </div>
@@ -22,54 +24,50 @@ export default function Header() {
               Book. Travel. Go Global.
             </span>
           </div>
-        </a>
+        </Link>
 
-        <nav className="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-700">
-          <a href="/" className="hover:text-brandPink-500 transition-colors">
+        {/* Desktop Navbar */}
+        <nav className="hidden lg:flex items-center gap-6 text-sm font-semibold text-slate-700">
+          <Link href="/" className="hover:text-brandPink-500 transition-colors">
             Home
-          </a>
-          <a
-            href="/#search-widget"
+          </Link>
+          <Link
+            href="/flight-reservation"
             className="hover:text-brandPink-500 transition-colors"
           >
-            Book Flight{" "}
-            <i className="fa-solid fa-chevron-down text-[10px] ml-1" />
-          </a>
-          <a
-            href="/#services"
+            Flight Reservation
+          </Link>
+          <Link
+            href="/onward-ticket"
             className="hover:text-brandPink-500 transition-colors"
           >
-            Pricing
-          </a>
-          <a
+            Onward Ticket
+          </Link>
+          <Link
+            href="/faq"
+            className="hover:text-brandPink-500 transition-colors"
+          >
+            FAQ
+          </Link>
+          <Link
+            href="/about"
+            className="hover:text-brandPink-500 transition-colors"
+          >
+            About Us
+          </Link>
+          <Link
             href="/blog"
             className="hover:text-brandPink-500 transition-colors"
           >
             Blog
-          </a>
-          <a
-            href="/#why-us"
-            className="hover:text-brandPink-500 transition-colors"
-          >
-            About Us
-          </a>
-          <a
-            href="/#testimonials"
-            className="hover:text-brandPink-500 transition-colors"
-          >
-            FAQ
-          </a>
-          <a
-            href="/#footer"
-            className="hover:text-brandPink-500 transition-colors"
-          >
-            Contact
-          </a>
+          </Link>
         </nav>
 
+        {/* Support Button (Desktop) */}
         <div className="hidden lg:flex items-center">
+          {/* APNA WHATSAPP NUMBER YAHAN DAALEIN (Country code ke sath, bina + ke) */}
           <a
-            href="https://wa.me/"
+            href="https://wa.me/919876543210"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-brandPink-500 hover:bg-brandPink-600 text-white font-bold text-xs px-5 py-2.5 rounded-full shadow-md shadow-brandPink-500/20 flex items-center gap-2 transition transform hover:-translate-y-0.5"
@@ -78,6 +76,7 @@ export default function Header() {
           </a>
         </div>
 
+        {/* Mobile Menu Button */}
         <button
           onClick={() => setMobileOpen((v) => !v)}
           className="lg:hidden text-slate-700 hover:text-brandPink-500 text-2xl focus:outline-none"
@@ -87,64 +86,66 @@ export default function Header() {
         </button>
       </div>
 
+      {/* Mobile Menu Drawer */}
       {mobileOpen && (
         <div className="lg:hidden bg-white border-b border-slate-200 px-6 py-4 space-y-3">
-          <a
+          <Link
             href="/"
             onClick={() => setMobileOpen(false)}
             className="block font-bold text-brandPink-500 py-1"
           >
             Home
-          </a>
-          <a
-            href="/#search-widget"
+          </Link>
+          <Link
+            href="/flight-reservation"
             onClick={() => setMobileOpen(false)}
             className="block font-medium text-slate-700 hover:text-brandPink-500 py-1"
           >
-            Book Flight
-          </a>
-          <a
-            href="/#services"
+            Flight Reservation
+          </Link>
+          <Link
+            href="/onward-ticket"
             onClick={() => setMobileOpen(false)}
             className="block font-medium text-slate-700 hover:text-brandPink-500 py-1"
           >
-            Pricing
-          </a>
-          <a
+            Onward Ticket
+          </Link>
+          <Link
+            href="/faq"
+            onClick={() => setMobileOpen(false)}
+            className="block font-medium text-slate-700 hover:text-brandPink-500 py-1"
+          >
+            FAQ
+          </Link>
+          <Link
+            href="/about"
+            onClick={() => setMobileOpen(false)}
+            className="block font-medium text-slate-700 hover:text-brandPink-500 py-1"
+          >
+            About Us
+          </Link>
+          <Link
             href="/blog"
             onClick={() => setMobileOpen(false)}
             className="block font-medium text-slate-700 hover:text-brandPink-500 py-1"
           >
             Blog
-          </a>
-          <a
-            href="/#why-us"
+          </Link>
+          <Link
+            href="/contact"
             onClick={() => setMobileOpen(false)}
             className="block font-medium text-slate-700 hover:text-brandPink-500 py-1"
           >
-            About Us
-          </a>
+            Contact Us
+          </Link>
+
           <a
-            href="/#testimonials"
-            onClick={() => setMobileOpen(false)}
-            className="block font-medium text-slate-700 hover:text-brandPink-500 py-1"
-          >
-            FAQ
-          </a>
-          <a
-            href="/#footer"
-            onClick={() => setMobileOpen(false)}
-            className="block font-medium text-slate-700 hover:text-brandPink-500 py-1"
-          >
-            Contact
-          </a>
-          <a
-            href="https://wa.me/"
+            href="https://wa.me/919876543210" // APNA NUMBER YAHAN BHI UPDATE KAREIN
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex w-full items-center justify-center bg-brandPink-500 text-white font-bold py-2.5 rounded-full gap-2"
+            className="inline-flex w-full items-center justify-center bg-brandPink-500 text-white font-bold py-2.5 rounded-full gap-2 mt-2"
           >
-            <i className="fa-solid fa-headset" /> Support
+            <i className="fa-solid fa-headset" /> Support on WhatsApp
           </a>
         </div>
       )}
