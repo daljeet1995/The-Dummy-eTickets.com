@@ -224,10 +224,37 @@ export default function SearchWidget() {
   const resetAll = () => {
     setSubmitted(false);
     setShowLeadForm(false);
+    setSummaryText("");
+
+    // Lead Form reset
     setLeadName("");
     setLeadEmail("");
-    setLeadPhone(""); // <-- RESET PHONE
-    setSummaryText("");
+    setLeadPhone("");
+
+    // Flight Form reset
+    setTripType("round");
+    setFlightFrom("");
+    setFlightTo("");
+    setDeparture("");
+    setReturnDate("");
+    setFlightPax({ adults: 1, children: 0, infants: 0 });
+    setCabin("Economy");
+
+    // Hotel Form reset
+    setHotelDest("");
+    setHotelCheckIn("");
+    setHotelCheckOut("");
+    setHotelPax({ adults: 2, children: 0, rooms: 1 });
+
+    // Combo Form reset
+    setComboFrom("");
+    setComboTo("");
+    setComboDep("");
+    setComboRet("");
+    setComboHotelCity("");
+    setComboCheckIn("");
+    setComboCheckOut("");
+    setComboPax({ guests: 2, rooms: 1 });
   };
 
   // ---------- RENDER ----------

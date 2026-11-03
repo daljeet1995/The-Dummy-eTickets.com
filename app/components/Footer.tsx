@@ -137,7 +137,7 @@ export default function Footer() {
           <div className="flex gap-4 font-medium">
             <Link href="/terms" className="hover:underline">
               Terms
-            </Link>
+            </Link> 
             <span>|</span>
             <Link href="/privacy-policy" className="hover:underline">
               Privacy
