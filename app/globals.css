@@ -1,26 +1,40 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-handwriting: var(--font-caveat);
+
+  --color-brandPink-50: #fdf2f8;
+  --color-brandPink-100: #fce7f3;
+  --color-brandPink-400: #f472b6;
+  --color-brandPink-500: #ec4899;
+  --color-brandPink-600: #db2777;
+  --color-brandPink-700: #be185d;
+
+  --color-brandOrange-50: #fff7ed;
+  --color-brandOrange-100: #ffedd5;
+  --color-brandOrange-400: #fb923c;
+  --color-brandOrange-500: #f97316;
+  --color-brandOrange-600: #ea580c;
+  --color-brandOrange-700: #c2410c;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.bg-pink-orange-gradient {
+  background: linear-gradient(135deg, #ec4899 0%, #f97316 100%);
+}
+.bg-orange-gradient {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+}
+.hero-bg-gradient {
+  background: linear-gradient(180deg, #fffafc 0%, #fff1f5 40%, #ffedd5 100%);
+}
+.shadow-pink-glow {
+  box-shadow: 0 10px 25px -5px rgba(236, 72, 153, 0.3);
+}
+.shadow-orange-glow {
+  box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.3);
 }
