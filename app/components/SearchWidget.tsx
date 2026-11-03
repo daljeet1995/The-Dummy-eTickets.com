@@ -64,7 +64,7 @@ export default function SearchWidget() {
   const [showLeadForm, setShowLeadForm] = useState(false);
   const [leadName, setLeadName] = useState("");
   const [leadEmail, setLeadEmail] = useState("");
-  const [leadPhone, setLeadPhone] = useState(""); // <-- NAYA STATE ADD KIYA
+  const [leadPhone, setLeadPhone] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [summaryText, setSummaryText] = useState("");
@@ -172,7 +172,7 @@ export default function SearchWidget() {
               type: "Flight",
               name: leadName,
               email: leadEmail,
-              phone: leadPhone, // <-- PHONE YAHAN ADD KIYA
+              phone: leadPhone,
               from: flightFrom,
               to: flightTo,
               departure,
@@ -185,7 +185,7 @@ export default function SearchWidget() {
                 type: "Hotel",
                 name: leadName,
                 email: leadEmail,
-                phone: leadPhone, // <-- PHONE YAHAN ADD KIYA
+                phone: leadPhone,
                 from: hotelDest,
                 to: "Hotel Stay",
                 departure: hotelCheckIn,
@@ -197,7 +197,7 @@ export default function SearchWidget() {
                 type: "Combo",
                 name: leadName,
                 email: leadEmail,
-                phone: leadPhone, // <-- PHONE YAHAN ADD KIYA
+                phone: leadPhone,
                 from: comboFrom,
                 to: comboTo,
                 departure: comboDep,
@@ -212,8 +212,11 @@ export default function SearchWidget() {
         body: JSON.stringify(payload),
       });
 
-      if (res.ok) setSubmitted(true);
-      else alert("Something went wrong. Please try again.");
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
     } catch {
       alert("Network error. Please try again.");
     } finally {
@@ -221,6 +224,7 @@ export default function SearchWidget() {
     }
   };
 
+  // ---------- RESET ALL FIELDS ----------
   const resetAll = () => {
     setSubmitted(false);
     setShowLeadForm(false);
@@ -961,14 +965,13 @@ export default function SearchWidget() {
               </div>
             </div>
 
-            {/* NAYA WHATSAPP FIELD */}
             <div>
               <label className="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">
-                WhatsApp Number (Optional)
+                WhatsApp Number
               </label>
               <input
                 type="tel"
-                required // <-- Ye add karein
+                required
                 value={leadPhone}
                 onChange={(e) => setLeadPhone(e.target.value)}
                 placeholder="+91 98765 43210"
