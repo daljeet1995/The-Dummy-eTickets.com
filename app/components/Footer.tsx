@@ -133,7 +133,10 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="bg-orange-gradient text-white/90 py-5 text-[11px]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div>&copy; 2026 TheDummy-Tickets.com. All Rights Reserved.</div>
+          <div>
+            &copy; {new Date().getFullYear()} TheDummy-Tickets.com. All Rights
+            Reserved.
+          </div>
           <div className="flex gap-4 font-medium">
             <Link href="/terms" className="hover:underline">
               Terms
