@@ -6,6 +6,7 @@ import Link from "next/link";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [quoteOpen, setQuoteOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-pink-100 shadow-sm">
@@ -63,17 +64,60 @@ export default function Header() {
           </Link>
         </nav>
 
-        {/* Support Button (Desktop) */}
-        <div className="hidden lg:flex items-center">
-          {/* APNA WHATSAPP NUMBER YAHAN DAALEIN (Country code ke sath, bina + ke) */}
-          <a
-            href="https://wa.me/919876543210"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-brandPink-500 hover:bg-brandPink-600 text-white font-bold text-xs px-5 py-2.5 rounded-full shadow-md shadow-brandPink-500/20 flex items-center gap-2 transition transform hover:-translate-y-0.5"
-          >
-            <i className="fa-solid fa-headset text-sm" /> Support
-          </a>
+        {/* Get Quotation Dropdown (Desktop) */}
+        <div
+          className="hidden lg:flex relative"
+          onMouseEnter={() => setQuoteOpen(true)}
+          onMouseLeave={() => setQuoteOpen(false)}
+        >
+          <button className="bg-pink-orange-gradient hover:opacity-95 text-white font-bold text-xs px-6 py-2.5 rounded-full shadow-pink-glow flex items-center gap-2 transition transform hover:-translate-y-0.5">
+            <i className="fa-solid fa-file-invoice-dollar text-sm" /> Get
+            Quotation{" "}
+            <i className="fa-solid fa-chevron-down text-[10px] ml-1" />
+          </button>
+
+          {/* Dropdown Menu */}
+          {quoteOpen && (
+            <div className="absolute right-0 top-full mt-2 w-64 bg-white rounded-2xl shadow-xl border border-slate-100 py-2 z-50">
+              {/* WhatsApp Option */}
+              <a
+                href="https://wa.me/919876543210?text=Hi%2C%20I%20need%20a%20quotation%20for%20my%20visa%20documents."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 px-4 py-3 hover:bg-green-50 transition group"
+              >
+                <div className="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-lg group-hover:scale-110 transition">
+                  <i className="fa-brands fa-whatsapp" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-slate-800">
+                    Get Quote via WhatsApp
+                  </div>
+                  <div className="text-[10px] text-slate-500">
+                    Instant reply
+                  </div>
+                </div>
+              </a>
+
+              {/* Email Option */}
+              <a
+                href="mailto:i2techagency@gmail.com?subject=Quotation%20Request"
+                className="flex items-center gap-3 px-4 py-3 hover:bg-pink-50 transition group border-t border-slate-50"
+              >
+                <div className="w-8 h-8 rounded-full bg-pink-100 text-brandPink-500 flex items-center justify-center text-sm group-hover:scale-110 transition">
+                  <i className="fa-solid fa-envelope" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-slate-800">
+                    Email for Quotation
+                  </div>
+                  <div className="text-[10px] text-slate-500">
+                    i2techagency@gmail.com
+                  </div>
+                </div>
+              </a>
+            </div>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -139,14 +183,24 @@ export default function Header() {
             Contact Us
           </Link>
 
-          <a
-            href="https://wa.me/919876543210" // APNA NUMBER YAHAN BHI UPDATE KAREIN
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex w-full items-center justify-center bg-brandPink-500 text-white font-bold py-2.5 rounded-full gap-2 mt-2"
-          >
-            <i className="fa-solid fa-headset" /> Support on WhatsApp
-          </a>
+          {/* Mobile Quotation Buttons */}
+          <div className="pt-4 border-t border-slate-100 flex flex-col gap-2">
+            <a
+              href="https://wa.me/919876543210?text=Hi%2C%20I%20need%20a%20quotation%20for%20my%20visa%20documents."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-full items-center justify-center bg-green-500 text-white font-bold py-2.5 rounded-xl gap-2 text-sm"
+            >
+              <i className="fa-brands fa-whatsapp text-lg" /> Get Quote on
+              WhatsApp
+            </a>
+            <a
+              href="mailto:i2techagency@gmail.com?subject=Quotation%20Request"
+              className="inline-flex w-full items-center justify-center bg-pink-orange-gradient text-white font-bold py-2.5 rounded-xl gap-2 text-sm"
+            >
+              <i className="fa-solid fa-envelope" /> Email for Quotation
+            </a>
+          </div>
         </div>
       )}
     </header>
