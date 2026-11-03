@@ -941,6 +941,7 @@ export default function SearchWidget() {
               </label>
               <input
                 type="tel"
+                required // <-- Ye add karein
                 value={leadPhone}
                 onChange={(e) => setLeadPhone(e.target.value)}
                 placeholder="+91 98765 43210"
