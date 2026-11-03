@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { getPosts, type WPPost } from "@/lib/wordpress";
 
 type Tab = "flight" | "hotel" | "combo";
 type PopoverId = "flight" | "hotel" | "combo" | null;
@@ -54,7 +55,17 @@ export default function HomeClient() {
   const [comboTo, setComboTo] = useState("");
   const [comboHotelCity, setComboHotelCity] = useState("");
   const [comboPax, setComboPax] = useState<ComboPax>({ guests: 2, rooms: 1 });
+  const [latestBlogs, setLatestBlogs] = useState<WPPost[]>([]);
 
+  useEffect(() => {
+    let active = true;
+    getPosts({ page: 1, perPage: 3 }).then(({ posts }) => {
+      if (active) setLatestBlogs(posts);
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
   // ---------- Close popover on outside click ----------
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -169,7 +180,7 @@ export default function HomeClient() {
   return (
     <>
       {/* ================= HEADER ================= */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-pink-100 shadow-sm">
+      {/* <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-pink-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           <a href="#" className="flex items-center gap-2 group">
             <div className="w-10 h-10 rounded-xl bg-pink-orange-gradient flex items-center justify-center text-white shadow-md transition-transform group-hover:scale-105">
@@ -275,13 +286,9 @@ export default function HomeClient() {
             >
               Pricing
             </a>
-            <a
-              href="#blog"
-              onClick={() => setMobileOpen(false)}
-              className="block font-medium text-slate-700 hover:text-brandPink-500 py-1"
-            >
-              Blog
-            </a>
+            <a href="/blog" onClick={() => setMobileOpen(false)} className="block font-medium text-slate-700 hover:text-brandPink-500 py-1">
+  Blog
+</a>
             <a
               href="#why-us"
               onClick={() => setMobileOpen(false)}
@@ -313,7 +320,7 @@ export default function HomeClient() {
             </a>
           </div>
         )}
-      </header>
+      </header> */}
 
       {/* ================= HERO ================= */}
       <section
@@ -1346,6 +1353,7 @@ export default function HomeClient() {
       </section>
 
       {/* ================= BLOG ================= */}
+      {/* ================= BLOG ================= */}
       <section id="blog" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
@@ -1362,7 +1370,7 @@ export default function HomeClient() {
               </p>
             </div>
             <a
-              href="#blog"
+              href="/blog"
               className="bg-brandPink-500 hover:bg-brandPink-600 text-white font-bold text-xs px-5 py-2.5 rounded-full shadow-sm transition inline-flex items-center gap-1 self-start sm:self-auto"
             >
               View All Blogs{" "}
@@ -1370,62 +1378,64 @@ export default function HomeClient() {
             </a>
           </div>
 
+          {/* Live posts from WordPress */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Dummy Ticket for Schengen Visa: Complete Guide",
-                img: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=600&q=80",
-                date: "Oct 28, 2026",
-              },
-              {
-                title: "How to Book the Best Flight Online?",
-                img: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80",
-                date: "Oct 25, 2026",
-              },
-              {
-                title: "Onward Ticket for Visa: Everything You Need to Know",
-                img: "https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?auto=format&fit=crop&w=600&q=80",
-                date: "Oct 22, 2026",
-              },
-            ].map((b, i) => (
-              <div
-                key={i}
-                className="bg-slate-50 rounded-3xl p-4 border border-slate-200/60 flex flex-col justify-between hover:shadow-md transition"
-              >
-                <div>
-                  <div className="h-44 rounded-2xl overflow-hidden mb-4 bg-slate-200">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={b.img}
-                      alt={b.title}
-                      className="w-full h-full object-cover"
-                    />
+            {latestBlogs.map((post) => {
+              const img =
+                post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+                "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=600&q=80";
+
+              return (
+                <div
+                  key={post.id}
+                  className="bg-slate-50 rounded-3xl p-4 border border-slate-200/60 flex flex-col justify-between hover:shadow-md transition"
+                >
+                  <div>
+                    <a href={`/blog/${post.slug}`}>
+                      <div className="h-44 rounded-2xl overflow-hidden mb-4 bg-slate-200">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={img}
+                          alt={post.title.rendered}
+                          className="w-full h-full object-cover hover:scale-105 transition duration-500"
+                        />
+                      </div>
+                    </a>
+                    <h3 className="font-extrabold text-slate-900 text-sm mb-2 hover:text-brandPink-500 transition">
+                      <a
+                        href={`/blog/${post.slug}`}
+                        dangerouslySetInnerHTML={{
+                          __html: post.title.rendered,
+                        }}
+                      />
+                    </h3>
                   </div>
-                  <h3 className="font-extrabold text-slate-900 text-sm mb-2 hover:text-brandPink-500 transition cursor-pointer">
-                    {b.title}
-                  </h3>
+                  <div className="flex items-center justify-between text-[11px] text-slate-400 pt-4 border-t border-slate-200/80 mt-4">
+                    <span>
+                      <i className="fa-regular fa-calendar text-brandPink-500 mr-1" />
+                      {new Date(post.date).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </span>
+                    <a
+                      href={`/blog/${post.slug}`}
+                      className="font-bold text-brandPink-500 hover:underline flex items-center gap-1"
+                    >
+                      Read More{" "}
+                      <i className="fa-solid fa-arrow-right text-[9px]" />
+                    </a>
+                  </div>
                 </div>
-                <div className="flex items-center justify-between text-[11px] text-slate-400 pt-4 border-t border-slate-200/80 mt-4">
-                  <span>
-                    <i className="fa-regular fa-calendar text-brandPink-500 mr-1" />{" "}
-                    {b.date}
-                  </span>
-                  <a
-                    href="#"
-                    className="font-bold text-brandPink-500 hover:underline flex items-center gap-1"
-                  >
-                    Read More{" "}
-                    <i className="fa-solid fa-arrow-right text-[9px]" />
-                  </a>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* ================= FOOTER ================= */}
-      <footer id="footer" className="bg-pink-orange-gradient text-white pt-12">
+      {/* <footer id="footer" className="bg-pink-orange-gradient text-white pt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 border-b border-white/20 pb-8">
             <div className="flex items-center gap-2">
@@ -1452,9 +1462,9 @@ export default function HomeClient() {
               <a href="#services" className="hover:underline">
                 Pricing
               </a>
-              <a href="#blog" className="hover:underline">
-                Blog
-              </a>
+              <a href="/blog" className="hover:text-brandPink-500 transition-colors">
+  Blog
+</a>
               <a href="#why-us" className="hover:underline">
                 About Us
               </a>
@@ -1500,7 +1510,7 @@ export default function HomeClient() {
             </div>
           </div>
         </div>
-      </footer>
+      </footer> */}
 
       {/* ================= BOOKING MODAL ================= */}
       {modalOpen && (
