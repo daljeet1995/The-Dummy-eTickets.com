@@ -1,6 +1,7 @@
 // lib/wordpress.ts
 const WP_API_URL =
-  process.env.WORDPRESS_API_URL || "https://dummy-tickets.com/blog/wp-json/wp/v2";
+  process.env.WORDPRESS_API_URL ||
+  "https://dummy-tickets.com/blog/wp-json/wp/v2";
 
 export interface WPPost {
   id: number;
@@ -41,7 +42,7 @@ export async function getPosts({
 
   try {
     const res = await fetch(`${WP_API_URL}/posts?${params.toString()}`, {
-      next: { revalidate: 60 },
+      cache: "no-store", // Next.js 16 build block fix
     });
 
     if (!res.ok) {
@@ -60,7 +61,7 @@ export async function getPosts({
 export async function getPostBySlug(slug: string): Promise<WPPost | null> {
   try {
     const res = await fetch(`${WP_API_URL}/posts?slug=${slug}&_embed=true`, {
-      next: { revalidate: 60 },
+      cache: "no-store", // Next.js 16 build block fix
     });
     if (!res.ok) return null;
     const posts: WPPost[] = await res.json();
@@ -73,7 +74,7 @@ export async function getPostBySlug(slug: string): Promise<WPPost | null> {
 export async function getCategories(): Promise<WPCategory[]> {
   try {
     const res = await fetch(`${WP_API_URL}/categories?per_page=100`, {
-      next: { revalidate: 3600 },
+      cache: "no-store", // Next.js 16 build block fix
     });
     if (!res.ok) return [];
     return res.json();
