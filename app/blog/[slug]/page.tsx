@@ -28,6 +28,10 @@ export async function generateMetadata({
   return {
     title: cleanTitle,
     description: cleanExcerpt,
+    // 👇 YE NAYA CODE ADD KAREIN
+    alternates: {
+      canonical: `https://dummy-tickets.com/blog/${post.slug}/`, // Competitor ka original URL
+    },
     openGraph: {
       title: cleanTitle,
       description: cleanExcerpt,
